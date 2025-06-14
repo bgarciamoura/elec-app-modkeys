@@ -43,6 +43,24 @@ const updateTrayMenu = (): void => {
       ]
     },
     {
+      label: 'Size',
+      submenu: [
+        { label: 'Small', type: 'radio', checked: overlayConfig.width === 200 && overlayConfig.height === 60, click: () => { overlayConfig.width = 200; overlayConfig.height = 60; updateTrayMenu(); } },
+        { label: 'Medium', type: 'radio', checked: overlayConfig.width === 250 && overlayConfig.height === 80, click: () => { overlayConfig.width = 250; overlayConfig.height = 80; updateTrayMenu(); } },
+        { label: 'Large', type: 'radio', checked: overlayConfig.width === 300 && overlayConfig.height === 100, click: () => { overlayConfig.width = 300; overlayConfig.height = 100; updateTrayMenu(); } }
+      ]
+    },
+    {
+      label: 'Position',
+      submenu: [
+        { label: 'Top Left', type: 'radio', checked: overlayConfig.position === 'top-left', click: () => { overlayConfig.position = 'top-left'; updateTrayMenu(); } },
+        { label: 'Top Right', type: 'radio', checked: overlayConfig.position === 'top-right', click: () => { overlayConfig.position = 'top-right'; updateTrayMenu(); } },
+        { label: 'Bottom Left', type: 'radio', checked: overlayConfig.position === 'bottom-left', click: () => { overlayConfig.position = 'bottom-left'; updateTrayMenu(); } },
+        { label: 'Bottom Right', type: 'radio', checked: overlayConfig.position === 'bottom-right', click: () => { overlayConfig.position = 'bottom-right'; updateTrayMenu(); } },
+        { label: 'Center', type: 'radio', checked: overlayConfig.position === 'center', click: () => { overlayConfig.position = 'center'; updateTrayMenu(); } }
+      ]
+    },
+    {
       label: 'Enabled',
       type: 'checkbox',
       checked: overlayConfig.enabled,
