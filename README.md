@@ -64,7 +64,13 @@ Para apenas gerar os arquivos JavaScript em `dist/` (sem iniciar o Electron):
 npm run build
 ```
 
-Atualmente não há configuração para empacotar o aplicativo em instaladores. Caso deseje distribuir, você pode utilizar ferramentas como [electron-builder](https://www.electron.build/) ou [electron-forge](https://www.electronforge.io/) adicionando as configurações necessárias.
+Para gerar instaladores para Windows, macOS e Linux execute:
+
+```bash
+npm run dist
+```
+
+Esse comando utiliza o **electron-builder**. O repositório inclui um fluxo de GitHub Actions que roda automaticamente o `electron-builder` toda vez que um merge é realizado na branch `main`, publicando os artefatos gerados para cada sistema operacional.
 
 ## Estrutura do Projeto
 
