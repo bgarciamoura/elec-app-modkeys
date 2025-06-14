@@ -8,9 +8,28 @@ let hideTimeout: NodeJS.Timeout | null = null;
 let capsLockState = false;
 
 // Settings
-let overlayDuration = 500; // milliseconds
-let overlayOpacity = 0.8; // 0.0 to 1.0
-let overlayFont = 'Arial'; // font family
+interface OverlayConfig {
+  duration: number;
+  opacity: number;
+  font: string;
+}
+
+const overlayConfig: OverlayConfig = {
+  duration: 500,
+  opacity: 0.8,
+  font: 'Arial'
+};
+
+const KEY_MAP: Record<number, string | ((isMac: boolean) => string)> = {
+  [UiohookKey.Shift]: 'SHIFT L',
+  [UiohookKey.ShiftRight]: 'SHIFT R',
+  [UiohookKey.Ctrl]: 'CTRL L',
+  [UiohookKey.CtrlRight]: 'CTRL R',
+  [UiohookKey.Alt]: 'ALT L',
+  [UiohookKey.AltRight]: 'ALT R',
+  [UiohookKey.Meta]: (isMac) => (isMac ? 'CMD L' : 'WIN L'),
+  [UiohookKey.MetaRight]: (isMac) => (isMac ? 'CMD R' : 'WIN R')
+};
 
 const createOverlayWindow = (): void => {
   const primaryDisplay = screen.getPrimaryDisplay();
@@ -51,14 +70,17 @@ const showOverlay = (key: string): void => {
   }
 
   overlayWindow.webContents.send('update-key', key);
-  overlayWindow.webContents.send('update-style', { opacity: overlayOpacity, font: overlayFont });
+  overlayWindow.webContents.send('update-style', {
+    opacity: overlayConfig.opacity,
+    font: overlayConfig.font
+  });
   overlayWindow.showInactive(); // Use showInactive to not steal focus
 
   hideTimeout = setTimeout(() => {
     if (overlayWindow) {
       overlayWindow.hide();
     }
-  }, overlayDuration);
+  }, overlayConfig.duration);
 };
 
 const updateTrayMenu = (): void => {
@@ -78,26 +100,26 @@ const updateTrayMenu = (): void => {
         {
           label: '0.25 seconds',
           type: 'radio',
-          checked: overlayDuration === 250,
-          click: () => { overlayDuration = 250; updateTrayMenu(); }
+          checked: overlayConfig.duration === 250,
+          click: () => { overlayConfig.duration = 250; updateTrayMenu(); }
         },
         {
           label: '0.5 seconds',
           type: 'radio',
-          checked: overlayDuration === 500,
-          click: () => { overlayDuration = 500; updateTrayMenu(); }
+          checked: overlayConfig.duration === 500,
+          click: () => { overlayConfig.duration = 500; updateTrayMenu(); }
         },
         {
           label: '1 second',
           type: 'radio',
-          checked: overlayDuration === 1000,
-          click: () => { overlayDuration = 1000; updateTrayMenu(); }
+          checked: overlayConfig.duration === 1000,
+          click: () => { overlayConfig.duration = 1000; updateTrayMenu(); }
         },
         {
           label: '2 seconds',
           type: 'radio',
-          checked: overlayDuration === 2000,
-          click: () => { overlayDuration = 2000; updateTrayMenu(); }
+          checked: overlayConfig.duration === 2000,
+          click: () => { overlayConfig.duration = 2000; updateTrayMenu(); }
         }
       ]
     },
@@ -107,38 +129,38 @@ const updateTrayMenu = (): void => {
         {
           label: '25%',
           type: 'radio',
-          checked: overlayOpacity === 0.25,
-          click: () => { overlayOpacity = 0.25; updateTrayMenu(); }
+          checked: overlayConfig.opacity === 0.25,
+          click: () => { overlayConfig.opacity = 0.25; updateTrayMenu(); }
         },
         {
           label: '50%',
           type: 'radio',
-          checked: overlayOpacity === 0.5,
-          click: () => { overlayOpacity = 0.5; updateTrayMenu(); }
+          checked: overlayConfig.opacity === 0.5,
+          click: () => { overlayConfig.opacity = 0.5; updateTrayMenu(); }
         },
         {
           label: '75%',
           type: 'radio',
-          checked: overlayOpacity === 0.75,
-          click: () => { overlayOpacity = 0.75; updateTrayMenu(); }
+          checked: overlayConfig.opacity === 0.75,
+          click: () => { overlayConfig.opacity = 0.75; updateTrayMenu(); }
         },
         {
           label: '80%',
           type: 'radio',
-          checked: overlayOpacity === 0.8,
-          click: () => { overlayOpacity = 0.8; updateTrayMenu(); }
+          checked: overlayConfig.opacity === 0.8,
+          click: () => { overlayConfig.opacity = 0.8; updateTrayMenu(); }
         },
         {
           label: '90%',
           type: 'radio',
-          checked: overlayOpacity === 0.9,
-          click: () => { overlayOpacity = 0.9; updateTrayMenu(); }
+          checked: overlayConfig.opacity === 0.9,
+          click: () => { overlayConfig.opacity = 0.9; updateTrayMenu(); }
         },
         {
           label: '100%',
           type: 'radio',
-          checked: overlayOpacity === 1.0,
-          click: () => { overlayOpacity = 1.0; updateTrayMenu(); }
+          checked: overlayConfig.opacity === 1.0,
+          click: () => { overlayConfig.opacity = 1.0; updateTrayMenu(); }
         }
       ]
     },
@@ -148,38 +170,38 @@ const updateTrayMenu = (): void => {
         {
           label: 'Arial',
           type: 'radio',
-          checked: overlayFont === 'Arial',
-          click: () => { overlayFont = 'Arial'; updateTrayMenu(); }
+          checked: overlayConfig.font === 'Arial',
+          click: () => { overlayConfig.font = 'Arial'; updateTrayMenu(); }
         },
         {
           label: 'Helvetica',
           type: 'radio',
-          checked: overlayFont === 'Helvetica',
-          click: () => { overlayFont = 'Helvetica'; updateTrayMenu(); }
+          checked: overlayConfig.font === 'Helvetica',
+          click: () => { overlayConfig.font = 'Helvetica'; updateTrayMenu(); }
         },
         {
           label: 'Times New Roman',
           type: 'radio',
-          checked: overlayFont === 'Times New Roman',
-          click: () => { overlayFont = 'Times New Roman'; updateTrayMenu(); }
+          checked: overlayConfig.font === 'Times New Roman',
+          click: () => { overlayConfig.font = 'Times New Roman'; updateTrayMenu(); }
         },
         {
           label: 'Courier New',
           type: 'radio',
-          checked: overlayFont === 'Courier New',
-          click: () => { overlayFont = 'Courier New'; updateTrayMenu(); }
+          checked: overlayConfig.font === 'Courier New',
+          click: () => { overlayConfig.font = 'Courier New'; updateTrayMenu(); }
         },
         {
           label: 'Roboto',
           type: 'radio',
-          checked: overlayFont === 'Roboto',
-          click: () => { overlayFont = 'Roboto'; updateTrayMenu(); }
+          checked: overlayConfig.font === 'Roboto',
+          click: () => { overlayConfig.font = 'Roboto'; updateTrayMenu(); }
         },
         {
           label: 'San Francisco',
           type: 'radio',
-          checked: overlayFont === '-apple-system',
-          click: () => { overlayFont = '-apple-system'; updateTrayMenu(); }
+          checked: overlayConfig.font === '-apple-system',
+          click: () => { overlayConfig.font = '-apple-system'; updateTrayMenu(); }
         }
       ]
     },
@@ -235,40 +257,21 @@ const getCapsLockState = (): boolean => {
 
 const startKeyListener = (): void => {
   uIOhook.on('keydown', (e) => {
-    switch (e.keycode) {
-      case UiohookKey.Shift:
-        showOverlay('SHIFT L');
-        break;
-      case UiohookKey.ShiftRight:
-        showOverlay('SHIFT R');
-        break;
-      case UiohookKey.Ctrl:
-        showOverlay('CTRL L');
-        break;
-      case UiohookKey.CtrlRight:
-        showOverlay('CTRL R');
-        break;
-      case UiohookKey.Alt:
-        showOverlay('ALT L');
-        break;
-      case UiohookKey.AltRight:
-        showOverlay('ALT R');
-        break;
-      case UiohookKey.Meta:
-        const isMac = process.platform === 'darwin';
-        showOverlay(isMac ? 'CMD L' : 'WIN L');
-        break;
-      case UiohookKey.MetaRight:
-        const isMacRight = process.platform === 'darwin';
-        showOverlay(isMacRight ? 'CMD R' : 'WIN R');
-        break;
-      case UiohookKey.CapsLock:
-        capsLockState = !capsLockState;
-        showOverlay(capsLockState ? 'CAPS ON' : 'CAPS OFF');
-        break;
+    if (e.keycode === UiohookKey.CapsLock) {
+      capsLockState = !capsLockState;
+      showOverlay(capsLockState ? 'CAPS ON' : 'CAPS OFF');
+      return;
+    }
+
+    const handler = KEY_MAP[e.keycode];
+    if (handler) {
+      const text = typeof handler === 'function'
+        ? handler(process.platform === 'darwin')
+        : handler;
+      showOverlay(text);
     }
   });
-  
+
   uIOhook.start();
 };
 
