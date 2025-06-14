@@ -1,5 +1,7 @@
 import { Tray, Menu, nativeImage, app } from 'electron';
 import { overlayConfig } from './config';
+import { startKeyListener, stopKeyListener } from './keyListener';
+import { hideOverlay } from './overlayWindow';
 
 let tray: Tray | null = null;
 
@@ -39,6 +41,21 @@ const updateTrayMenu = (): void => {
         { label: 'Roboto', type: 'radio', checked: overlayConfig.font === 'Roboto', click: () => { overlayConfig.font = 'Roboto'; updateTrayMenu(); } },
         { label: 'San Francisco', type: 'radio', checked: overlayConfig.font === '-apple-system', click: () => { overlayConfig.font = '-apple-system'; updateTrayMenu(); } }
       ]
+    },
+    {
+      label: 'Enabled',
+      type: 'checkbox',
+      checked: overlayConfig.enabled,
+      click: (menuItem) => {
+        overlayConfig.enabled = menuItem.checked;
+        if (overlayConfig.enabled) {
+          startKeyListener();
+        } else {
+          stopKeyListener();
+          hideOverlay();
+        }
+        updateTrayMenu();
+      }
     },
     { type: 'separator' },
     { label: 'Quit', click: () => { app.quit(); } }

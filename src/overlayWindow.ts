@@ -56,3 +56,12 @@ export const showOverlay = (key: string): void => {
     }
   }, overlayConfig.duration);
 };
+
+export const hideOverlay = (): void => {
+  if (!overlayWindow) return;
+  if (hideTimeout) {
+    clearTimeout(hideTimeout);
+    hideTimeout = null;
+  }
+  overlayWindow.hide();
+};
