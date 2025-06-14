@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Key Overlay</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: transparent;
+            overflow: hidden;
+        }
+        
+        .overlay-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.1s ease;
+        }
+        
+        .key-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            transition: font-family 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay-card">
+        <p class="key-text" id="keyDisplay">KEY</p>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+        
+        ipcRenderer.on('update-key', (event, key) => {
+            document.getElementById('keyDisplay').textContent = key;
+        });
+        
+        ipcRenderer.on('update-style', (event, style) => {
+            const overlayCard = document.querySelector('.overlay-card');
+            const keyText = document.getElementById('keyDisplay');
+            
+            if (style.opacity !== undefined) {
+                overlayCard.style.background = `rgba(255, 255, 255, ${style.opacity})`;
+            }
+            
+            if (style.font !== undefined) {
+                keyText.style.fontFamily = style.font;
+            }
+        });
+    </script>
+</body>
+</html>
