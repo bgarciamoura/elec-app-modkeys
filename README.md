@@ -11,6 +11,7 @@ O objetivo é fornecer uma indicação visual que ajuda em demonstrações, grav
 - [Instalação](#instalacao)
 - [Execução](#execucao)
 - [Build](#build)
+- [Estrutura do Projeto](#estrutura-do-projeto)
 - [Contribuição](#contribuicao)
 - [Licença](#licenca)
 
@@ -58,6 +59,22 @@ npm run build
 ```
 
 Atualmente não há configuração para empacotar o aplicativo em instaladores. Caso deseje distribuir, você pode utilizar ferramentas como [electron-builder](https://www.electron.build/) ou [electron-forge](https://www.electronforge.io/) adicionando as configurações necessárias.
+
+## Estrutura do Projeto
+
+```
+elec-app-modkeys/
+├─ src/             # Código TypeScript principal
+│  ├─ main.ts       # Inicializa o Electron e módulos auxiliares
+│  ├─ overlayWindow.ts # Criação e exibição do overlay
+│  ├─ keyListener.ts   # Captura de teclas modificadoras via uiohook
+│  ├─ tray.ts          # Menu de bandeja para configurações
+│  └─ config.ts        # Objeto de configuração compartilhado
+├─ overlay.html    # Interface HTML do overlay
+├─ package.json    # Scripts e dependências do projeto
+├─ tsconfig.json   # Configuração do TypeScript
+└─ dist/           # Arquivos gerados após `npm run build`
+```
 
 ## Contribuição
 
