@@ -2,6 +2,7 @@ import { UiohookKey, uIOhook } from 'uiohook-napi';
 import { showOverlay } from './overlayWindow';
 
 let capsLockState = false;
+let listening = false;
 
 const KEY_MAP: Record<number, string | ((isMac: boolean) => string)> = {
   [UiohookKey.Shift]: 'SHIFT L',
@@ -15,6 +16,8 @@ const KEY_MAP: Record<number, string | ((isMac: boolean) => string)> = {
 };
 
 export const startKeyListener = (): void => {
+  if (listening) return;
+
   uIOhook.on('keydown', (e) => {
     if (e.keycode === UiohookKey.CapsLock) {
       capsLockState = !capsLockState;
@@ -32,8 +35,12 @@ export const startKeyListener = (): void => {
   });
 
   uIOhook.start();
+  listening = true;
 };
 
 export const stopKeyListener = (): void => {
+  if (!listening) return;
   uIOhook.stop();
+  uIOhook.removeAllListeners('keydown');
+  listening = false;
 };
