@@ -21,6 +21,6 @@ export const overlayConfig: OverlayConfig = {
   font: 'Arial',
   width: 250,
   height: 80,
-  position: 'center'
+  position: 'center',
   enabled: true
 };

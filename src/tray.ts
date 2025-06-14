@@ -59,6 +59,8 @@ const updateTrayMenu = (): void => {
         { label: 'Bottom Right', type: 'radio', checked: overlayConfig.position === 'bottom-right', click: () => { overlayConfig.position = 'bottom-right'; updateTrayMenu(); } },
         { label: 'Center', type: 'radio', checked: overlayConfig.position === 'center', click: () => { overlayConfig.position = 'center'; updateTrayMenu(); } }
       ]
+    },
+    {
       label: 'Enabled',
       type: 'checkbox',
       checked: overlayConfig.enabled,
