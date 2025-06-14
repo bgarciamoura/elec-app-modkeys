@@ -17,7 +17,7 @@ O objetivo é fornecer uma indicação visual que ajuda em demonstrações, grav
 ## Recursos
 
 - Overlay simples exibindo a tecla modificadora pressionada.
-- Configuração de duração, opacidade e fonte diretamente no menu da bandeja do sistema.
+- Configuração de duração, opacidade, fonte, tamanho e posição diretamente no menu da bandeja do sistema.
 - Suporte a Windows, macOS e Linux.
 
 ## Requisitos
