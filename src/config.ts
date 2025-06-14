@@ -41,10 +41,13 @@ const ensureConfigPath = () => {
 };
 
 export const loadConfig = (): void => {
+  const file = ensureConfigPath();
+  if (!fs.existsSync(file)) {
+    return;
+  }
   try {
-    const file = ensureConfigPath();
-    if (fs.existsSync(file)) {
-      const data = fs.readFileSync(file, 'utf-8');
+    const data = fs.readFileSync(file, 'utf-8').trim();
+    if (data) {
       const parsed = JSON.parse(data) as Partial<OverlayConfig>;
       Object.assign(overlayConfig, defaultOverlayConfig, parsed);
     }
