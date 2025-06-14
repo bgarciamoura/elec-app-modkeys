@@ -12,6 +12,7 @@ export interface OverlayConfig {
   width: number;
   height: number;
   position: OverlayPosition;
+  enabled: boolean;
 }
 
 export const overlayConfig: OverlayConfig = {
@@ -21,4 +22,5 @@ export const overlayConfig: OverlayConfig = {
   width: 250,
   height: 80,
   position: 'center'
+  enabled: true
 };

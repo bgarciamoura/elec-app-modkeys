@@ -1,5 +1,7 @@
 import { Tray, Menu, nativeImage, app } from 'electron';
 import { overlayConfig } from './config';
+import { startKeyListener, stopKeyListener } from './keyListener';
+import { hideOverlay } from './overlayWindow';
 
 let tray: Tray | null = null;
 
@@ -57,6 +59,19 @@ const updateTrayMenu = (): void => {
         { label: 'Bottom Right', type: 'radio', checked: overlayConfig.position === 'bottom-right', click: () => { overlayConfig.position = 'bottom-right'; updateTrayMenu(); } },
         { label: 'Center', type: 'radio', checked: overlayConfig.position === 'center', click: () => { overlayConfig.position = 'center'; updateTrayMenu(); } }
       ]
+      label: 'Enabled',
+      type: 'checkbox',
+      checked: overlayConfig.enabled,
+      click: (menuItem) => {
+        overlayConfig.enabled = menuItem.checked;
+        if (overlayConfig.enabled) {
+          startKeyListener();
+        } else {
+          stopKeyListener();
+          hideOverlay();
+        }
+        updateTrayMenu();
+      }
     },
     { type: 'separator' },
     { label: 'Quit', click: () => { app.quit(); } }
