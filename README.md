@@ -19,6 +19,8 @@ O objetivo é fornecer uma indicação visual que ajuda em demonstrações, grav
 
 - Overlay simples exibindo a tecla modificadora pressionada.
 - Configuração de duração, opacidade, fonte, tamanho e posição diretamente no menu da bandeja do sistema.
+- As preferências escolhidas são salvas automaticamente e restauradas ao abrir o aplicativo.
+- Opção no menu para restaurar as configurações padrão.
 - Suporte a Windows, macOS e Linux.
 
 ## Requisitos
@@ -49,6 +51,10 @@ Isso realiza o build do TypeScript e em seguida abre o Electron. É possível ex
 ```bash
 npm run dev
 ```
+
+As preferências são armazenadas em um arquivo `overlay-config.json` dentro da
+pasta de dados do usuário. Esse arquivo é carregado automaticamente na próxima
+execução.
 
 ## Build
 
