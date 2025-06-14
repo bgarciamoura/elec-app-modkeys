@@ -66,14 +66,11 @@ npm run build
 
 Para gerar instaladores para o sistema operacional atual execute:
 
-
 ```bash
 npm run dist
 ```
 
-
-Esse comando utiliza o **electron-builder**. O repositório inclui um fluxo de GitHub Actions que roda automaticamente o `electron-builder` sempre que um merge é realizado na branch `main`, publicando os artefatos gerados para cada sistema operacional.
-
+Esse comando utiliza o **electron-builder**. O repositório possui um fluxo de GitHub Actions que executa o `electron-builder` em cada merge na branch `main`, criando uma *release* no GitHub com os pacotes gerados para cada sistema operacional. O workflow usa o token `TOKEN` configurado nas configurações do repositório.
 
 ## Estrutura do Projeto
 

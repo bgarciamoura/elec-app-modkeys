@@ -18,7 +18,9 @@ jobs:
         with:
           node-version: 18
       - run: npm install
-      - run: npm run dist
+      - run: npm run dist -- --publish always
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN }}
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}-build

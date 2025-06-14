@@ -30,6 +30,12 @@
       "overlay.html"
     ],
     "asar": true,
+    "publish": [
+      {
+        "provider": "github",
+        "releaseType": "draft"
+      }
+    ],
     "mac": {
       "target": ["zip"]
     }
