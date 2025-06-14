@@ -37,6 +37,13 @@ const ensureConfigPath = () => {
   if (!configPath) {
     configPath = path.join(app.getPath('userData'), 'overlay-config.json');
   }
+  // guarantee directory exists
+  const dir = path.dirname(configPath);
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+  } catch (err) {
+    console.error('Failed creating config directory:', err);
+  }
   return configPath;
 };
 
