@@ -64,13 +64,16 @@ Para apenas gerar os arquivos JavaScript em `dist/` (sem iniciar o Electron):
 npm run build
 ```
 
-Para gerar instaladores para Windows, macOS e Linux execute:
+Para gerar instaladores para o sistema operacional atual execute:
+
 
 ```bash
 npm run dist
 ```
 
-Esse comando utiliza o **electron-builder**. O repositório inclui um fluxo de GitHub Actions que roda automaticamente o `electron-builder` toda vez que um merge é realizado na branch `main`, publicando os artefatos gerados para cada sistema operacional.
+
+Esse comando utiliza o **electron-builder**. O repositório inclui um fluxo de GitHub Actions que roda automaticamente o `electron-builder` sempre que um merge é realizado na branch `main`, publicando os artefatos gerados para cada sistema operacional.
+
 
 ## Estrutura do Projeto
 
