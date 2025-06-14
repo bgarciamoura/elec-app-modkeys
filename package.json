@@ -6,6 +6,7 @@
     "build": "tsc",
     "start": "npm run build && electron .",
     "dev": "npm run build && electron . --dev",
+    "dist": "npm run build && electron-builder -mwl",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,9 +17,18 @@
     "@types/node": "^24.0.1",
     "electron": "^36.4.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "electron-builder": "^24.9.1"
   },
   "dependencies": {
     "uiohook-napi": "^1.5.4"
+  },
+  "build": {
+    "appId": "com.elecapp.modkeys",
+    "files": [
+      "dist/**/*",
+      "overlay.html"
+    ],
+    "asar": true
   }
 }
