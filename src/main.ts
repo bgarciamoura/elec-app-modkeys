@@ -2,9 +2,10 @@ import { app, BrowserWindow } from 'electron';
 import { createOverlayWindow } from './overlayWindow';
 import { createTray } from './tray';
 import { startKeyListener, stopKeyListener } from './keyListener';
-import { overlayConfig } from './config';
+import { overlayConfig, loadConfig, saveConfig } from './config';
 
 app.whenReady().then(() => {
+  loadConfig();
   createOverlayWindow();
   createTray();
   if (overlayConfig.enabled) {
@@ -18,6 +19,7 @@ app.whenReady().then(() => {
 
 app.on('before-quit', () => {
   stopKeyListener();
+  saveConfig();
 });
 
 app.on('activate', () => {
