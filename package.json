@@ -36,6 +36,9 @@
         "releaseType": "draft"
       }
     ],
+    "linux": {
+      "target": ["AppImage"]
+    },
     "mac": {
       "target": ["zip"]
     }

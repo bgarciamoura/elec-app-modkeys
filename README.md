@@ -71,6 +71,7 @@ npm run dist
 ```
 
 Esse comando utiliza o **electron-builder**. O repositório possui um fluxo de GitHub Actions que executa o `electron-builder` em cada merge na branch `main`, criando uma *release* no GitHub com os pacotes gerados para cada sistema operacional. O workflow usa o token `TOKEN` configurado nas configurações do repositório.
+Nas máquinas Linux, é gerado apenas o formato **AppImage**, evitando a dependência do `snapcraft`.
 
 ## Estrutura do Projeto
 
